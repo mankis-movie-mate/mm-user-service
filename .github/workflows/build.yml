@@ -20,6 +20,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USER }}" --password-stdin
+
       - name: Build and push Docker image with maven spring boot
         run: |
           mvn spring-boot:build-image \
@@ -27,9 +30,7 @@ jobs:
               -Dmaven.test.skip=true \
               -Ddocker.registry=${{ secrets.DOCKERHUB_USER }} \
               -Dspring-boot.build-image.publish=true \
-              -Dspring-boot.build-image.image=${{ secrets.DOCKERHUB_USER }}/mm-user-service:latest \
-              -Dspring-boot.build-image.docker.username=${{ secrets.DOCKERHUB_USER }} \
-              -Dspring-boot.build-image.docker.password=${{ secrets.DOCKERHUB_PASSWORD }} 
+              -Dspring-boot.build-image.image=${{ secrets.DOCKERHUB_USER }}/mm-user-service:latest 
               
 
       - name: Trigger re-deploy
