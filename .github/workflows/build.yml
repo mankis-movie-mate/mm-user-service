@@ -25,11 +25,11 @@ jobs:
           mvn spring-boot:build-image \
               -DskipTests \
               -Dmaven.test.skip=true \
-              -Ddocker.registry=${{ secrets.DOCKERHUB_USER }}
+              -Ddocker.registry=${{ secrets.DOCKERHUB_USER }} \
               -Dspring-boot.build-image.publish=true \
               -Dspring-boot.build-image.image=${{ secrets.DOCKERHUB_USER }}/mm-user-service:latest \
               -Dspring-boot.build-image.docker.username=${{ secrets.DOCKERHUB_USER }} \
-              -Dspring-boot.build-image.docker.password=${{ secrets.DOCKERHUB_PASSWORD }} \
+              -Dspring-boot.build-image.docker.password=${{ secrets.DOCKERHUB_PASSWORD }} 
               
 
       - name: Trigger re-deploy
