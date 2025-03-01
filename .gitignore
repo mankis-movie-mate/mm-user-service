@@ -24,6 +24,8 @@ hs_err_pid*
 replay_pid*
 
 .idea
-.env
 target
 user-service.iml
+
+#env
+.env

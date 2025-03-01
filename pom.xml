@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>user-service</artifactId>
+    <artifactId>mm-user-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>user-service</name>
     <description>user-service</description>
@@ -135,7 +135,7 @@
                         </exclude>
                     </excludes>
                     <image>
-                        <name>${docker.registry}/${project.artifactId}:${project.version}</name>
+                        <name>${docker.registry}/${project.artifactId}:latest</name>
                     </image>
                     <layers>
                         <enabled>true</enabled>
