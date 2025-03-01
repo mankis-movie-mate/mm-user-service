@@ -28,6 +28,9 @@ jobs:
           mvn spring-boot:build-image \
               -DskipTests \
               -Dmaven.test.skip=true \
+              -Ddocker.publishRegistry.username=${{ secrets.DOCKERHUB_USER }} \
+              -Ddocker.publishRegistry.password=${{ secrets.DOCKERHUB_PASSWORD }} \
+              -Ddocker.publishRegistry.url=docker.io \
               -Ddocker.registry=${{ secrets.DOCKERHUB_USER }} \
               -Dspring-boot.build-image.publish=true \
               -Dspring-boot.build-image.image=${{ secrets.DOCKERHUB_USER }}/mm-user-service:latest 
