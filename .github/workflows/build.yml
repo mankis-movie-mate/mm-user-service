@@ -20,12 +20,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build and push Docker image with Jib
+      - name: Build and push Docker image with maven spring boot
         env:
           DOCKERHUB_USER: ${{ needs.build.outputs.dockerUser }}
           DOCKERHUB_PASSWORD: ${{ needs.build.outputs.dockerPassword }}
         run: |
           mvn spring-boot:build-image \
+              -Ddocker.registry=$DOCKERHUB_USER
               -Dspring-boot.build-image.publish=true \
               -Dspring-boot.build-image.image=${{ secrets.DOCKERHUB_USER }}/mm-user-service:latest \
               -Dspring-boot.build-image.docker.username=${{ secrets.DOCKERHUB_USER }} \
