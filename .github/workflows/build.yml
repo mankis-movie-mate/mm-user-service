@@ -28,7 +28,8 @@ jobs:
               -Dspring-boot.build-image.image=${{ secrets.DOCKERHUB_USER }}/mm-user-service:latest \
               -Dspring-boot.build-image.docker.username=${{ secrets.DOCKERHUB_USER }} \
               -Dspring-boot.build-image.docker.password=${{ secrets.DOCKERHUB_PASSWORD }} \
-              -DskipTests
+              -DskipTests \
+              -Dmaven.test.skip=true
 
       - name: Trigger re-deploy
         uses: peter-evans/repository-dispatch@v1
