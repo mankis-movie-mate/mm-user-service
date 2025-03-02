@@ -16,8 +16,17 @@ spring:
       #        show_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-
+  cloud:
+    consul:
+      host: ${MOVIE_MATE_DISCOVERY_SERVER_HOST}
+      port: ${MOVIE_MATE_DISCOVERY_SERVER_PORT}
+      discovery:
+        register: true
+        instance-id: mm-${spring.application.name}-${random.value}
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        prefer-ip-address: true
+        scheme: http
   cache:
     type: redis
     host: ${MOVIE_MATE_REDIS_HOST}
