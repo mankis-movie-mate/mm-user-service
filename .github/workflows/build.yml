@@ -36,7 +36,7 @@ jobs:
               -Dspring-boot.build-image.image=${{ secrets.DOCKERHUB_USER }}/mm-user-service:latest 
               
 
-      - name: Trigger re-deploy
+      - name: Trigger redeploy
         uses: peter-evans/repository-dispatch@v1
         with:
           repository: mankis-movie-mate/mm-infrastructure
