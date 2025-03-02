@@ -1,8 +1,8 @@
 package cz.cvut.moviemate.userservice.exception.handler;
 
+import cz.cvut.moviemate.userservice.dto.error.ApiErrorSingleResponse;
 import cz.cvut.moviemate.userservice.exception.MovieMateBaseException;
 import cz.cvut.moviemate.userservice.exception.RestrictException;
-import cz.cvut.moviemate.userservice.dto.error.ApiErrorSingleResponse;
 import cz.cvut.moviemate.userservice.util.ApiErrorFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;

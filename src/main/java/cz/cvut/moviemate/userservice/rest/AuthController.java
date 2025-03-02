@@ -1,9 +1,9 @@
 package cz.cvut.moviemate.userservice.rest;
 
 import cz.cvut.moviemate.userservice.dto.*;
-import cz.cvut.moviemate.userservice.exception.JwtErrorException;
 import cz.cvut.moviemate.userservice.dto.error.ApiErrorMultipleResponses;
 import cz.cvut.moviemate.userservice.dto.error.ApiErrorSingleResponse;
+import cz.cvut.moviemate.userservice.exception.JwtErrorException;
 import cz.cvut.moviemate.userservice.service.AuthService;
 import io.jsonwebtoken.JwtException;
 import io.swagger.v3.oas.annotations.Operation;

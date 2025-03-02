@@ -34,7 +34,7 @@ jobs:
               -Ddocker.registry=${{ secrets.DOCKERHUB_USER }} \
               -Dspring-boot.build-image.publish=true \
               -Dspring-boot.build-image.image=${{ secrets.DOCKERHUB_USER }}/mm-user-service:latest 
-              
+
 
       - name: Trigger redeploy
         uses: peter-evans/repository-dispatch@v1

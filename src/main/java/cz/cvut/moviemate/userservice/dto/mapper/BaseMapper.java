@@ -6,12 +6,6 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-import cz.cvut.moviemate.userservice.dto.PageDto;
-import org.mapstruct.Mapper;
-import org.springframework.data.domain.Page;
-
-import java.util.List;
-
 @Mapper(componentModel = "spring")
 public interface BaseMapper {
 

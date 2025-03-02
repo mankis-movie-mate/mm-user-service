@@ -11,7 +11,8 @@ import java.util.Map;
 
 public class ApiErrorFactory {
 
-    private ApiErrorFactory() {}
+    private ApiErrorFactory() {
+    }
 
     public static ApiErrorMultipleResponses createApiErrorResponses(
             HttpStatus status,
