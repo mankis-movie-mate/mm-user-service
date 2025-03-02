@@ -23,7 +23,7 @@ spring:
       discovery:
         register: true
         instance-id: mm-${spring.application.name}-${random.value}
-        health-check-path: /actuator/health
+        health-check-path: ${server.servlet.context-path}/actuator/health
         health-check-interval: 10s
         prefer-ip-address: true
         scheme: http
@@ -46,6 +46,17 @@ security:
     username: ${MOVIE_MATE_USER_SERVICE_ROOT_USERNAME}
     email: ${MOVIE_MATE_USER_SERVICE_ROOT_EMAIL}
     password: ${MOVIE_MATE_USER_SERVICE_ROOT_PASSWORD}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: when_authorized
+  security:
+    enabled: true
 
 logging:
   level:
