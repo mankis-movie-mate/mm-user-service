@@ -22,11 +22,14 @@ spring:
       port: ${MOVIE_MATE_DISCOVERY_SERVER_PORT}
       discovery:
         register: true
+        enabled: true
         instance-id: mm-${spring.application.name}-${random.value}
         health-check-path: ${server.servlet.context-path}/actuator/health
         health-check-interval: 10s
         prefer-ip-address: true
         scheme: http
+        tags:
+          - "traefik.enable=true"
   cache:
     type: redis
     host: ${MOVIE_MATE_REDIS_HOST}
