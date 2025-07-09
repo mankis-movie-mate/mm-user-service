@@ -30,7 +30,7 @@ spring:
         scheme: http
         tags:
           - "traefik.enable=true"
-          - "traefik.http.routers.user-service.rule=PathPrefix(${MOVIE_MATE_USER_SERVICE_CONTEXT_PATH})"
+          - "traefik.http.routers.user-service.rule=PathPrefix(`${MOVIE_MATE_USER_SERVICE_CONTEXT_PATH}`)"
   cache:
     type: redis
     host: ${MOVIE_MATE_REDIS_HOST}
