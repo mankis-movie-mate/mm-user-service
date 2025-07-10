@@ -41,7 +41,7 @@ spring:
     password: ${MOVIE_MATE_REDIS_PASSWORD}
     ttl: ${MOVIE_MATE_USER_SERVICE_REDIS_TTL:-1}
   application:
-    name: user-service
+    name: mm-user-service
 
 security:
   jwt:
