@@ -32,7 +32,7 @@ spring:
           - "traefik.enable=true"
           - "traefik.http.routers.${spring.application.name}.rule=PathPrefix(`/${spring.application.name}`)"
           - "traefik.http.routers.${spring.application.name}.middlewares=dapr-rewrite@file"
-          - "traefik.http.services.${spring.application.name}.loadbalancer.server.port=${MOVIE_MATE_USER_SERVICE_DAPR_PORT}"
+          - "traefik.http.services.${spring.application.name}.loadbalancer.server.port=3500" # It is a standard port of dapr. Only accessible in docker network.
   cache:
     type: redis
     host: ${MOVIE_MATE_REDIS_HOST}
