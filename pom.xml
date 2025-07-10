@@ -11,8 +11,8 @@
 
     <artifactId>mm-user-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>user-service</name>
-    <description>user-service</description>
+    <name>mm-user-service</name>
+    <description>mm-user-service</description>
 
     <properties>
         <jwt.version>0.12.3</jwt.version>
