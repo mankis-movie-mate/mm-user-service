@@ -54,12 +54,10 @@ security:
     password: ${MOVIE_MATE_USER_SERVICE_ROOT_PASSWORD}
 
 management:
-  metrics:
-    export:
-      otlp:
-        enabled: true
-        step: 10s
-        uri: ${MOVIE_MATE_OTEL_COLLECTOR_METRICS_URI}
+  otlp:
+    metrics:
+      export:
+        url: ${MOVIE_MATE_OTEL_COLLECTOR_METRICS_URL}
   endpoints:
     web:
       exposure:
