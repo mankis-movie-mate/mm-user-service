@@ -22,12 +22,8 @@ It provides a REST API for user-related operations, including JWT-based authenti
 - Maven
 
 ## Environment Variables
-This service requires two sets of environment variables:
-* Service-specific variables – defined in .env.example.
+Defined in .env.example.
 Copy this file to .env and adjust the values to your environment.
-These variables control only the mm-user-service configuration.
-* Cluster-wide variables – defined in the root .env. and .env.db (mm-infrastructure)
-Make sure this file is available and injected into your deployment (e.g., via Kubernetes Secrets, Docker Compose, or GitHub Actions secrets).
 
 ## Setup
 
