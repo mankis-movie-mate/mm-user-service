@@ -1,5 +1,5 @@
 server:
-  port: ${MOVIE_MATE_USER_SERVICE_PORT:7030}
+  port: ${MOVIE_MATE_USER_SERVICE_PORT:8080}
   servlet:
     context-path: ${MOVIE_MATE_USER_SERVICE_CONTEXT_PATH:/api/v1}
 
