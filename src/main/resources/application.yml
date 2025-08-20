@@ -1,5 +1,5 @@
 server:
-  port: ${MOVIE_MATE_USER_SERVICE_PORT:7030}
+  port: ${MOVIE_MATE_USER_SERVICE_PORT:8080}
   servlet:
     context-path: ${MOVIE_MATE_USER_SERVICE_CONTEXT_PATH:/api/v1}
 
@@ -16,8 +16,23 @@ spring:
       #        show_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-
+  cloud:
+    consul:
+      host: ${MOVIE_MATE_DISCOVERY_SERVER_HOST}
+      port: ${MOVIE_MATE_DISCOVERY_SERVER_PORT}
+      discovery:
+        register: true
+        enabled: true
+        instance-id: mm-${spring.application.name}-${random.value}
+        health-check-path: ${server.servlet.context-path}/actuator/health
+        health-check-interval: 10s
+        prefer-ip-address: true
+        scheme: http
+        tags:
+          - "traefik.enable=true"
+          - "traefik.http.routers.${spring.application.name}.rule=PathPrefix(`/${spring.application.name}`)"
+          - "traefik.http.routers.${spring.application.name}.middlewares=dapr-rewrite@file"
+          - "traefik.http.services.${spring.application.name}.loadbalancer.server.port=3500" # It is a standard port of dapr. Only accessible in docker network.
   cache:
     type: redis
     host: ${MOVIE_MATE_REDIS_HOST}
@@ -26,7 +41,9 @@ spring:
     password: ${MOVIE_MATE_REDIS_PASSWORD}
     ttl: ${MOVIE_MATE_USER_SERVICE_REDIS_TTL:-1}
   application:
-    name: user-service
+    name: mm-user-service
+
+
 
 security:
   jwt:
@@ -38,7 +55,26 @@ security:
     email: ${MOVIE_MATE_USER_SERVICE_ROOT_EMAIL}
     password: ${MOVIE_MATE_USER_SERVICE_ROOT_PASSWORD}
 
+management:
+  otlp:
+    metrics:
+      export:
+        url: ${MOVIE_MATE_OTEL_COLLECTOR_METRICS_URL}
+    tracing:
+      endpoint: ${MOVIE_MATE_OTEL_COLLECTOR_TRACING_URL}
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+  security:
+    enabled: true
+
 logging:
+  pattern:
+    level: "%5p [traceId=%X{traceId:-},spanId=%X{spanId:-}]"
   level:
     org:
       springframework: INFO

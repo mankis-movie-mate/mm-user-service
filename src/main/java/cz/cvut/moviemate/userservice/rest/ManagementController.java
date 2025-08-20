@@ -83,7 +83,7 @@ public class ManagementController {
     @PatchMapping(value = "/role/{username}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AppUserDto> addRoleToUser(@PathVariable String username, @RequestBody SetNewRolesRequest request ) {
+    public ResponseEntity<AppUserDto> addRoleToUser(@PathVariable String username, @RequestBody SetNewRolesRequest request) {
         log.info("MANAGEMENT: Received request to set new roles to user {}", username);
 
         AppUserDto updated = externalAppUserService.setNewRoles(username, request);

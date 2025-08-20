@@ -1,9 +1,9 @@
 package cz.cvut.moviemate.userservice.exception.handler;
 
+import cz.cvut.moviemate.userservice.dto.error.ApiErrorSingleResponse;
 import cz.cvut.moviemate.userservice.exception.JwtErrorException;
 import cz.cvut.moviemate.userservice.exception.UserBannedException;
 import cz.cvut.moviemate.userservice.exception.UserDeletedException;
-import cz.cvut.moviemate.userservice.dto.error.ApiErrorSingleResponse;
 import cz.cvut.moviemate.userservice.util.ApiErrorFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;

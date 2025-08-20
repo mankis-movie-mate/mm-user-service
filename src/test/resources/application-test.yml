@@ -1,0 +1,14 @@
+server:
+  port: ${MOVIE_MATE_USER_SERVICE_PORT:8080}
+  servlet:
+    context-path: ${/api/v1}
+
+spring:
+  application:
+    name: user-service
+
+security:
+  jwt:
+    secret-key: IBbfbieufbfiuerbfiu3biu323480238423v894g
+    access-expiration: 7200
+    refresh-expiration: 3600

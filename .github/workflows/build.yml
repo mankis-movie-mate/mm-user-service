@@ -1,0 +1,45 @@
+name: Build user service
+
+on:
+  push:
+    branches:
+      - dev/release-test
+
+jobs:
+
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USER }}" --password-stdin
+
+      - name: Build and push Docker image with maven spring boot
+        run: |
+          mvn spring-boot:build-image \
+              -DskipTests \
+              -Dmaven.test.skip=true \
+              -Ddocker.publishRegistry.username=${{ secrets.DOCKERHUB_USER }} \
+              -Ddocker.publishRegistry.password=${{ secrets.DOCKERHUB_PASSWORD }} \
+              -Ddocker.publishRegistry.url=docker.io \
+              -Ddocker.registry=${{ secrets.DOCKERHUB_USER }} \
+              -Dspring-boot.build-image.publish=true \
+              -Dspring-boot.build-image.image=${{ secrets.DOCKERHUB_USER }}/mm-user-service:latest 
+
+
+      - name: Trigger redeploy
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: mankis-movie-mate/mm-infrastructure
+          event-type: user-service-builded
+          client-payload: '{"service": "mm-user-service", "tag": "latest"}'
+          token: ${{ secrets.MM_TOKEN }}

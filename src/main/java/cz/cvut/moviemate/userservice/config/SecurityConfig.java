@@ -95,6 +95,7 @@ public class SecurityConfig {
         return auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/docs/**").permitAll()
+                .requestMatchers("/actuator/health").permitAll()
                 .anyRequest()
                 .authenticated();
     }

@@ -21,15 +21,14 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class BaseAccessDeniedHandler implements AccessDeniedHandler {
 
-    private final ObjectMapper objectMapper;
-    private final PrincipalUtil principalUtil;
-
     private static final String ACCESS_DENIED_MESSAGE = "You do not have permission to access this resource.";
     private static final String ACCESS_DENIED_DETAILS = "Access is restricted. Please check your permissions or contact support.";
     private static final String[] RESOLUTION_SUGGESTIONS = {
             "Ensure you have the necessary permissions.",
             "Contact support if you believe this is an error."
     };
+    private final ObjectMapper objectMapper;
+    private final PrincipalUtil principalUtil;
 
     @Override
     public void handle(

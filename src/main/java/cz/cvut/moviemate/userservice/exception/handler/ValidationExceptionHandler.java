@@ -1,10 +1,10 @@
 package cz.cvut.moviemate.userservice.exception.handler;
 
+import cz.cvut.moviemate.userservice.dto.error.ApiErrorMultipleResponses;
+import cz.cvut.moviemate.userservice.dto.error.ApiErrorSingleResponse;
 import cz.cvut.moviemate.userservice.exception.DuplicateException;
 import cz.cvut.moviemate.userservice.exception.InvalidTimestampException;
 import cz.cvut.moviemate.userservice.exception.NotFoundException;
-import cz.cvut.moviemate.userservice.dto.error.ApiErrorMultipleResponses;
-import cz.cvut.moviemate.userservice.dto.error.ApiErrorSingleResponse;
 import cz.cvut.moviemate.userservice.util.ApiErrorFactory;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;

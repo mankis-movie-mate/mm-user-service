@@ -1,9 +1,9 @@
 package cz.cvut.moviemate.userservice.rest;
 
 import cz.cvut.moviemate.userservice.dto.*;
-import cz.cvut.moviemate.userservice.exception.JwtErrorException;
 import cz.cvut.moviemate.userservice.dto.error.ApiErrorMultipleResponses;
 import cz.cvut.moviemate.userservice.dto.error.ApiErrorSingleResponse;
+import cz.cvut.moviemate.userservice.exception.JwtErrorException;
 import cz.cvut.moviemate.userservice.service.AuthService;
 import io.jsonwebtoken.JwtException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -91,6 +91,12 @@ public class AuthController {
             }
         }
         // Token is valid, return 200 OK with token details
-        return ResponseEntity.ok(details);
+        return ResponseEntity
+                .ok()
+                .header("X-User-Id", String.valueOf(details.id()))
+                .header("X-User-Username", details.username())
+                .header("X-User-Email", details.email())
+                .header("X-User-Roles", String.join(",", details.roles()))
+                .body(details);
     }
 }
