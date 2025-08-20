@@ -2,33 +2,45 @@
 
 ## Overview
 
-The User Service handles user authentication, registration, and profile management in MovieMate.
-It provides a REST API for user-related operations, including JWT-based authentication.
+The **User Service** handles authentication, registration, and user profile management for the MovieMate platform.  
+It exposes a REST API for all user-related operations and features secure JWT-based authentication.
 
-## Features
+---
 
-- **User Authentication**: Handles user login and token validation.
-- **User Registration**: Manages user sign-up and account creation.
-- **Profile Management**: Allows users to update their personal information.
-- **Token Validation API**: Provides an endpoint for verifying authentication tokens.
+## ✨ Features
 
-## Tech Stack
+- **User Authentication**: Secure login and token-based access.
+- **User Registration**: Easy user sign-up and account creation.
+- **Profile Management**: Users can update their personal details.
+- **Token Validation API**: Fast endpoint for checking JWT validity.
 
-- Java 17
-- Spring Boot (Spring Security, Spring Data JPA)
-- PostgreSQL
-- Redis (caching)
-- JWT Authentication
-- Maven
+---
 
-## Environment Variables
-Defined in .env.example.
-Copy this file to .env and adjust the values to your environment.
+## 🛠 Tech Stack
 
-## Setup
+- **Java 17**
+- **Spring Boot** (Security, Data JPA)
+- **PostgreSQL** (user data storage)
+- **Redis** (caching)
+- **JWT** authentication
+- **Maven** (build & dependency management)
 
-### Prerequisites
+---
 
-- Java 17+
-- Maven
-- Docker (optional, for PostgreSQL)
+## ⚙️ Environment Variables
+
+Environment variables are defined in `.env.example`.
+
+- Copy `.env.example` to `.env`
+- Fill in the required values for your local or production setup
+
+## 🐳 Docker
+
+### **Build image locally:**
+
+You can build the Docker image directly with Maven and [Spring Boot Buildpacks](https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/html/#build-image):
+
+```bash
+mvn spring-boot:build-image \
+    -DskipTests \
+    -Dspring-boot.build-image.image=mm-user-service:latest
