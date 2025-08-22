@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class DaprConfig {
     @Bean
     public DaprMessagingTemplate<Object> daprMessagingTemplate(@Autowired DaprClient daprClient,
-                                                               @Value("${dapr.pubsub.name}") String pubsubName) {
+                                                               @Value("${dapr.pubsub.component}") String pubsubName) {
         return new DaprMessagingTemplate<>(daprClient, pubsubName, true);
     }
 }
