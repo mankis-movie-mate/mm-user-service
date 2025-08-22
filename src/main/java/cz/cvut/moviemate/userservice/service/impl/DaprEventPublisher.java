@@ -1,10 +1,8 @@
 package cz.cvut.moviemate.userservice.service.impl;
 
-import io.dapr.client.DaprClient;
-import io.dapr.client.DaprClientBuilder;
 import io.dapr.spring.messaging.DaprMessagingTemplate;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j; // Add Lombok's logger annotation!
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

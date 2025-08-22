@@ -52,11 +52,11 @@ public class BaseAuthService implements AuthService {
 
         // --- Publish event after successful login ---
         daprEventPublisher
-                    .publishLoginEvent(new UserLoginEvent(
-                    String.valueOf(appUser.getId()),
-                    appUser.getUsername(),
-                    appUser.getEmail()
-            ));
+                .publishLoginEvent(new UserLoginEvent(
+                        String.valueOf(appUser.getId()),
+                        appUser.getUsername(),
+                        appUser.getEmail()
+                ));
 
         return buildResponse(appUser);
     }
@@ -81,10 +81,10 @@ public class BaseAuthService implements AuthService {
         // --- Publish event after successful registration ---
         daprEventPublisher
                 .publishRegisterEvent(new UserRegisterEvent(
-                String.valueOf(saved.getId()),
-                saved.getUsername(),
-                saved.getEmail()
-        ));
+                        String.valueOf(saved.getId()),
+                        saved.getUsername(),
+                        saved.getEmail()
+                ));
 
         return buildResponse(saved);
     }

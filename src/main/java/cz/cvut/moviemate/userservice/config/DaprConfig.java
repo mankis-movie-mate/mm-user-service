@@ -1,7 +1,6 @@
 package cz.cvut.moviemate.userservice.config;
 
 import io.dapr.client.DaprClient;
-import io.dapr.client.DaprClientBuilder;
 import io.dapr.spring.messaging.DaprMessagingTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
