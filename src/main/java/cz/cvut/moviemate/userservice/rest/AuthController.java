@@ -72,7 +72,7 @@ public class AuthController {
     @ApiResponse(responseCode = "200", description = "Access token is valid.", content = @Content(schema = @Schema(implementation = AppUserClaimsDetails.class)))
     @ApiResponse(responseCode = "403", description = "Error occurred while validating token.", content = @Content(schema = @Schema(implementation = ApiErrorSingleResponse.class)))
     @ApiResponse(responseCode = "400", description = "Invalid access token and refresh token is not specified.")
-    @PostMapping(value = "/validate-token", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/validate-token", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUserClaimsDetails> validateToken(@RequestHeader("Authorization") String authHeader,
                                                               @RequestParam(required = false) String refreshToken) {
         log.info("Request received to validate access token.");
