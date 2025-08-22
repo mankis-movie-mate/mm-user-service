@@ -21,6 +21,8 @@
         <spring-doc.version>2.6.0</spring-doc.version>
         <maven.versions.plugin>2.15.0</maven.versions.plugin>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
+        <dapr.version>1.16.0-rc-1</dapr.version>
+        <protobuf.version>3.24.4</protobuf.version>
     </properties>
 
 
@@ -168,8 +170,13 @@
         <!-- DAPR -->
         <dependency>
             <groupId>io.dapr</groupId>
-            <artifactId>dapr-sdk-springboot</artifactId>
-            <version>1.16.0-rc-1</version>
+            <artifactId>dapr-sdk</artifactId>
+            <version>${dapr.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
         </dependency>
 
     </dependencies>

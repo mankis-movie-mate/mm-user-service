@@ -32,7 +32,6 @@ public class DaprEventPublisher {
             log.info("Published login event to Dapr/Kafka, topic={}", loginTopic);
         } catch (Exception e) {
             log.error("Failed to publish login event to Dapr/Kafka", e);
-            // Optionally: retry logic or enqueue for later processing
         }
     }
 
