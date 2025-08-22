@@ -29,10 +29,10 @@ spring:
         prefer-ip-address: true
         scheme: http
         tags:
+          # === PUBLIC (NO AUTH) ===
           - "traefik.enable=true"
-            # === PUBLIC (NO AUTH) ===
           - "traefik.http.routers.${spring.application.name}-public.rule=PathRegexp(`.*/auth/(login|register|validate-token)$`)"
-          - "traefik.http.routers.${spring.application.name}-public.rule.middlewares=dapr-rewrite@file"
+          - "traefik.http.routers.${spring.application.name}-public.middlewares=dapr-rewrite@file"
           - "traefik.http.routers.${spring.application.name}-public.priority=100"
           # === SECURE (FORWARD AUTH) ===
           - "traefik.http.routers.${spring.application.name}.rule=PathPrefix(`/${spring.application.name}`)"
