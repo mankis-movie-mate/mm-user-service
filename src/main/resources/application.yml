@@ -30,9 +30,14 @@ spring:
         scheme: http
         tags:
           - "traefik.enable=true"
+            # === PUBLIC (NO AUTH) ===
+          - "traefik.http.routers.${spring.application.name}-public.rule=PathRegexp(`.*/auth/(login|register|validate-token)$`)"
+          - "traefik.http.routers.${spring.application.name}-public.priority=100"
+          # === SECURE (FORWARD AUTH) ===
           - "traefik.http.routers.${spring.application.name}.rule=PathPrefix(`/${spring.application.name}`)"
-          - "traefik.http.routers.${spring.application.name}.middlewares=dapr-rewrite@file"
-          - "traefik.http.services.${spring.application.name}.loadbalancer.server.port=3500" # It is a standard port of dapr. Only accessible in docker network.
+          - "traefik.http.routers.${spring.application.name}.middlewares=dapr-rewrite@file,jwt-forwardauth@file"
+          - "traefik.http.routers.${spring.application.name}.priority=10"
+          - "traefik.http.services.${spring.application.name}.loadbalancer.server.port=3500" # standard Dapr port
   cache:
     type: redis
     host: ${MOVIE_MATE_REDIS_HOST}
