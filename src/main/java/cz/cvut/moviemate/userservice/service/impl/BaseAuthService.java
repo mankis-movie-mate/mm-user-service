@@ -33,7 +33,7 @@ public class BaseAuthService implements AuthService {
     private final ValidationUtil validationUtil;
     private final AuthenticationManager authManager;
     private final PasswordEncoder passwordEncoder;
-    private DaprEventPublisher daprEventPublisher;
+    private final DaprEventPublisher daprEventPublisher;
 
     @Override
     @Transactional
