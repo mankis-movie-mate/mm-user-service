@@ -2,45 +2,40 @@ package cz.cvut.moviemate.userservice.service.impl;
 
 import io.dapr.client.DaprClient;
 import io.dapr.client.DaprClientBuilder;
+import io.dapr.spring.messaging.DaprMessagingTemplate;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j; // Add Lombok's logger annotation!
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j // <-- This adds the 'log' object
 @Service
+@RequiredArgsConstructor
 public class DaprEventPublisher {
 
-    private final DaprClient daprClient = new DaprClientBuilder().build();
+    private final DaprMessagingTemplate<Object> daprMessagingTemplate;
 
-    private final String pubsubName;
-    private final String loginTopic;
-    private final String registerTopic;
+    @Value("${dapr.pubsub.topic.login}")
+    private String loginTopic;
 
-    // Values injected from Spring config
-    public DaprEventPublisher(
-            @Value("${dapr.pubsub.component}") String pubsubName,
-            @Value("${dapr.pubsub.topic.login}") String loginTopic,
-            @Value("${dapr.pubsub.topic.register}") String registerTopic) {
-        this.pubsubName = pubsubName;
-        this.loginTopic = loginTopic;
-        this.registerTopic = registerTopic;
-    }
+    @Value("${dapr.pubsub.topic.register}")
+    private String registerTopic;
 
     public void publishLoginEvent(Object event) {
         try {
-            daprClient.publishEvent(pubsubName, loginTopic, event).block();
-            log.info("Published login event to Dapr/Kafka, topic={}", loginTopic);
+            daprMessagingTemplate.send(loginTopic, event);
+            log.info("Published login event to topic: {}", loginTopic);
         } catch (Exception e) {
-            log.error("Failed to publish login event to Dapr/Kafka", e);
+            log.error("Failed to publish login event", e);
         }
     }
 
     public void publishRegisterEvent(Object event) {
         try {
-            daprClient.publishEvent(pubsubName, registerTopic, event).block();
-            log.info("Published register event to Dapr/Kafka, topic={}", registerTopic);
+            daprMessagingTemplate.send(registerTopic, event);
+            log.info("Published register event to topic: {}", registerTopic);
         } catch (Exception e) {
-            log.error("Failed to publish register event to Dapr/Kafka", e);
+            log.error("Failed to publish register event", e);
         }
     }
 }
