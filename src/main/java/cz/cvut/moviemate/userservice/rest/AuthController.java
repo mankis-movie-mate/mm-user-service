@@ -93,6 +93,7 @@ public class AuthController {
         // Token is valid, return 200 OK with token details
         return ResponseEntity
                 .ok()
+                .header("Authorization", authHeader)
                 .header("X-User-Id", String.valueOf(details.id()))
                 .header("X-User-Username", details.username())
                 .header("X-User-Email", details.email())
