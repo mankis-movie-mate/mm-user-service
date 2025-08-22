@@ -49,7 +49,14 @@ spring:
   application:
     name: mm-user-service
 
-
+dapr:
+  http:
+    port: ${MOVIE_MATE_USER_SERVICE_DAPR_PORT:3500}
+  pubsub:
+    component: ${MOVIE_MATE_DAPR_PUBSUB_COMPONENT}
+    topic:
+      login: ${MOVIE_MATE_KAFKA_LOGIN_TOPIC}
+      register: ${MOVIE_MATE_KAFKA_REGISTER_TOPIC}
 
 security:
   jwt:

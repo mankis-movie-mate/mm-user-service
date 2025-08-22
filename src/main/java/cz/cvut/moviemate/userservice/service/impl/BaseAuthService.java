@@ -6,6 +6,8 @@ import cz.cvut.moviemate.userservice.exception.JwtErrorException;
 import cz.cvut.moviemate.userservice.model.AppUser;
 import cz.cvut.moviemate.userservice.model.Role;
 import cz.cvut.moviemate.userservice.model.UserRole;
+import cz.cvut.moviemate.userservice.model.event.UserLoginEvent;
+import cz.cvut.moviemate.userservice.model.event.UserRegisterEvent;
 import cz.cvut.moviemate.userservice.service.AuthService;
 import cz.cvut.moviemate.userservice.service.InternalAppUserService;
 import cz.cvut.moviemate.userservice.service.TokenService;
@@ -31,6 +33,7 @@ public class BaseAuthService implements AuthService {
     private final ValidationUtil validationUtil;
     private final AuthenticationManager authManager;
     private final PasswordEncoder passwordEncoder;
+    private DaprEventPublisher daprEventPublisher;
 
     @Override
     @Transactional
@@ -46,6 +49,14 @@ public class BaseAuthService implements AuthService {
                 appUser.getUsername(),
                 loginRequest.password()
         ));
+
+        // --- Publish event after successful login ---
+        daprEventPublisher
+                    .publishLoginEvent(new UserLoginEvent(
+                    String.valueOf(appUser.getId()),
+                    appUser.getUsername(),
+                    appUser.getEmail()
+            ));
 
         return buildResponse(appUser);
     }
@@ -66,6 +77,14 @@ public class BaseAuthService implements AuthService {
                 .build();
         appUser.addRole(userRole);
         AppUser saved = internalAppUserService.save(appUser);
+
+        // --- Publish event after successful registration ---
+        daprEventPublisher
+                .publishRegisterEvent(new UserRegisterEvent(
+                String.valueOf(saved.getId()),
+                saved.getUsername(),
+                saved.getEmail()
+        ));
 
         return buildResponse(saved);
     }
