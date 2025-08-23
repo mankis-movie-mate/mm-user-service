@@ -27,8 +27,8 @@ public class AppUserController {
     private final PrincipalUtil principalUtil;
 
     @Operation(summary = "Get user's profile")
-    @ApiResponse(responseCode = "200", description = "User's profile information was successfully retrieved.")
-    @ApiResponse(responseCode = "500", description = "Unable to fetch the username from the authentication context.")
+    @ApiResponse(responseCode = "200", description = "User's profile information was successfully retrieved.", content = @Content(schema = @Schema(implementation = AppUserDto.class)))
+    @ApiResponse(responseCode = "500", description = "Unable to fetch the username from the authentication context.", content = @Content(schema = @Schema(implementation = ApiErrorSingleResponse.class)))
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUserDto> getUserProfile() {
         log.info("Received request to get user's profile");
@@ -37,7 +37,7 @@ public class AppUserController {
     }
 
     @Operation(summary = "Update profile information")
-    @ApiResponse(responseCode = "200", description = "User's profile information was successfully updated.")
+    @ApiResponse(responseCode = "200", description = "User's profile information was successfully updated.", content = @Content(schema = @Schema(implementation = AppUserDto.class)))
     @ApiResponse(responseCode = "404", description = "User with given username not found.")
     @PatchMapping(
             value = "/update",

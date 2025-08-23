@@ -27,9 +27,9 @@ public class AuthController {
     private final AuthService authService;
 
     @Operation(summary = "Register user")
-    @ApiResponse(responseCode = "200", description = "User successfully registered.")
-    @ApiResponse(responseCode = "401", description = "Internal app error while generating token.")
-    @ApiResponse(responseCode = "409", description = "Username/email duplicate detection.")
+    @ApiResponse(responseCode = "200", description = "User successfully registered.", content = @Content(schema = @Schema(implementation = AuthorizationResponse.class)))
+    @ApiResponse(responseCode = "401", description = "Internal app error while generating token.", content = @Content(schema = @Schema(implementation = ApiErrorSingleResponse.class)))
+    @ApiResponse(responseCode = "409", description = "Username/email duplicate detection.", content = @Content(schema = @Schema(implementation = ApiErrorMultipleResponses.class)))
     @PostMapping(
             value = "/register",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -40,10 +40,10 @@ public class AuthController {
     }
 
     @Operation(summary = "Login user")
-    @ApiResponse(responseCode = "200", description = "User successfully logged in.")
-    @ApiResponse(responseCode = "404", description = "User with specified username/email was not found.")
-    @ApiResponse(responseCode = "417", description = "Invalid credentials.")
-    @ApiResponse(responseCode = "423", description = "User account is banned.")
+    @ApiResponse(responseCode = "200", description = "User successfully logged in.", content = @Content(schema = @Schema(implementation = AuthorizationResponse.class)))
+    @ApiResponse(responseCode = "404", description = "User with specified username/email was not found.", content = @Content(schema = @Schema(implementation = ApiErrorMultipleResponses.class)))
+    @ApiResponse(responseCode = "417", description = "Invalid credentials.", content = @Content(schema = @Schema(implementation = ApiErrorSingleResponse.class)))
+    @ApiResponse(responseCode = "423", description = "User account is banned.", content = @Content(schema = @Schema(implementation = ApiErrorSingleResponse.class)))
     @PostMapping(
             value = "/login",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -55,7 +55,7 @@ public class AuthController {
 
     @Operation(summary = "Refresh access token")
     @ApiResponse(responseCode = "200", description = "Access token has been refreshed successfully.")
-    @ApiResponse(responseCode = "403", description = "Something goes wrong while validating refresh token.")
+    @ApiResponse(responseCode = "403", description = "Something goes wrong while validating refresh token.", content = @Content(schema = @Schema(implementation = ApiErrorSingleResponse.class)))
     @PostMapping(value = "/refresh-token")
     public ResponseEntity<TokenPairDto> refreshToken(@RequestParam("refreshToken") String refreshToken) {
         log.info("Request received to refresh access token");
@@ -69,8 +69,8 @@ public class AuthController {
 
 
     @Operation(summary = "Validate token")
-    @ApiResponse(responseCode = "200", description = "Access token is valid.")
-    @ApiResponse(responseCode = "403", description = "Error occurred while validating token.")
+    @ApiResponse(responseCode = "200", description = "Access token is valid.", content = @Content(schema = @Schema(implementation = AppUserClaimsDetails.class)))
+    @ApiResponse(responseCode = "403", description = "Error occurred while validating token.", content = @Content(schema = @Schema(implementation = ApiErrorSingleResponse.class)))
     @ApiResponse(responseCode = "400", description = "Invalid access token and refresh token is not specified.")
     @GetMapping(value = "/validate-token", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUserClaimsDetails> validateToken(@RequestHeader("Authorization") String authHeader,

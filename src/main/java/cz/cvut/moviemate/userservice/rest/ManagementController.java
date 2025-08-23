@@ -27,18 +27,18 @@ public class ManagementController {
 
     @Operation(summary = "Searching users using filters.",
             description = """
-                EQUAL(':'),
-                NEGATION('!'),
-                CONTAIN('*'),
-                GREATER_THAN('>'),
-                LESS_THAN('<'),
-                LIKE('~'),
-                details: true/false - provide users' details like activity history etc.
-                Filter example: ?page=1&size=5&q=username:manki%26updateDate>2024-04-01
-                WARNING: after filter q=, use "%26" instead of "&"
-                """
+                    EQUAL(':'),
+                    NEGATION('!'),
+                    CONTAIN('*'),
+                    GREATER_THAN('>'),
+                    LESS_THAN('<'),
+                    LIKE('~'),
+                    details: true/false - provide users' details like activity history etc.
+                    Filter example: ?page=1&size=5&q=username:manki%26updateDate>2024-04-01
+                    WARNING: after filter q=, use "%26" instead of "&"
+                    """
     )
-    @ApiResponse(responseCode = "200")
+    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = PageDto.class)))
     @ApiResponse(responseCode = "403", description = "Access Denied. You do not have permission to access this resource.")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'ROOT')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -68,8 +68,10 @@ public class ManagementController {
         return ResponseEntity.ok(pageDto);
     }
 
+
+
     @Operation(summary = "Get user's profile information by username. Accessible by roles ADMIN, MODERATOR, ROOT.")
-    @ApiResponse(responseCode = "200", description = "User's profile information was successfully retrieved.")
+    @ApiResponse(responseCode = "200", description = "User's profile information was successfully retrieved.", content = @Content(schema = @Schema(implementation = AppUserDto.class)))
     @ApiResponse(responseCode = "404", description = "User with given username not found.")
     @ApiResponse(responseCode = "403", description = "Access Denied. You do not have permission to access this resource.")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'ROOT')")
