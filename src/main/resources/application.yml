@@ -92,6 +92,10 @@ logging:
     org:
       springframework: DEBUG
 
+app:
+  cors:
+    allowed-origins: ${MOVIE_MATE_USER_SERVICE_ALLOWED_ORIGINS:https://themanki.net,http://localhost:3000}
+
 springdoc:
   api-docs:
     path: /docs
