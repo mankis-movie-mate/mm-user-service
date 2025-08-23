@@ -5,6 +5,7 @@ import cz.cvut.moviemate.userservice.dto.mapper.AppUserMapper;
 import cz.cvut.moviemate.userservice.exception.JwtErrorException;
 import cz.cvut.moviemate.userservice.model.AppUser;
 import cz.cvut.moviemate.userservice.model.Role;
+import cz.cvut.moviemate.userservice.model.UserHistory;
 import cz.cvut.moviemate.userservice.model.UserRole;
 import cz.cvut.moviemate.userservice.model.event.UserLoginEvent;
 import cz.cvut.moviemate.userservice.model.event.UserRegisterEvent;
@@ -21,6 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -75,6 +78,14 @@ public class BaseAuthService implements AuthService {
                 .fullName(registerRequest.fullName())
                 .password(hashedPassword)
                 .build();
+
+        UserHistory userHistory = UserHistory
+                .builder()
+                .appUser(appUser)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        appUser.setUserHistory(userHistory);
         appUser.addRole(userRole);
         AppUser saved = internalAppUserService.save(appUser);
 
