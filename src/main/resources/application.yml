@@ -97,4 +97,5 @@ springdoc:
     path: /docs
   swagger-ui:
     path: /docs/swagger-ui.html
-
+  server:
+    url: ${MOVIE_MATE_USER_SERVICE_OPENAPI_SERVER_URL}
