@@ -18,9 +18,12 @@
         <jwt.version>0.12.3</jwt.version>
         <mapstruct.version>1.6.0.Beta1</mapstruct.version>
         <lombok.version>1.18.32</lombok.version>
-        <spring-doc.version>2.6.0</spring-doc.version>
+        <spring-doc.version>2.8.10</spring-doc.version>
         <maven.versions.plugin>2.15.0</maven.versions.plugin>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
+        <dapr.version>0.15.0</dapr.version>
+        <jackson.java8.version>2.20.0-rc1</jackson.java8.version>
+        <protobuf.version>3.25.5</protobuf.version>
     </properties>
 
 
@@ -33,6 +36,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -44,14 +52,14 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-rest</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <!-- SPRING -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -114,7 +122,17 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-parameter-names</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-modules-java8</artifactId>
+            <version>${jackson.java8.version}</version>
+            <type>pom</type>
+            <scope>runtime</scope>
+        </dependency>
         <!-- Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -165,10 +183,20 @@
             <artifactId>opentelemetry-exporter-otlp</artifactId>
         </dependency>
 
+        <!-- DAPR -->
+        <dependency>
+            <groupId>io.dapr.spring</groupId>
+            <artifactId>dapr-spring-boot-starter</artifactId>
+            <version>${dapr.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
 
     </dependencies>
-
 
 
     <build>

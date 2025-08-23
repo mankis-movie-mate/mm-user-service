@@ -38,7 +38,9 @@ Environment variables are defined in `.env.example`.
 
 ### **Build image locally:**
 
-You can build the Docker image directly with Maven and [Spring Boot Buildpacks](https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/html/#build-image):
+You can build the Docker image directly with Maven
+and [Spring Boot Buildpacks](https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/html/#build-image):
+
 
 ```bash
 mvn spring-boot:build-image \
