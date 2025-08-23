@@ -41,6 +41,7 @@ Environment variables are defined in `.env.example`.
 You can build the Docker image directly with Maven
 and [Spring Boot Buildpacks](https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/html/#build-image):
 
+
 ```bash
 mvn spring-boot:build-image \
     -DskipTests \

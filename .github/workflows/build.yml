@@ -35,7 +35,6 @@ jobs:
               -Dspring-boot.build-image.publish=true \
               -Dspring-boot.build-image.image=${{ secrets.DOCKERHUB_USER }}/mm-user-service:latest 
 
-
 #      - name: Trigger redeploy
 #        uses: peter-evans/repository-dispatch@v1
 #        with:
@@ -43,3 +42,4 @@ jobs:
 #          event-type: user-service-builded
 #          client-payload: '{"service": "mm-user-service", "tag": "latest"}'
 #          token: ${{ secrets.MM_TOKEN }}
+

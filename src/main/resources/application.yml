@@ -58,6 +58,7 @@ dapr:
       login: ${MOVIE_MATE_KAFKA_LOGIN_TOPIC}
       register: ${MOVIE_MATE_KAFKA_REGISTER_TOPIC}
 
+
 security:
   jwt:
     secret-key: ${MOVIE_MATE_JWT_SECRET_KEY}
