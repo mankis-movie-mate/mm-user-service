@@ -79,10 +79,12 @@ public class BaseAuthService implements AuthService {
                 .password(hashedPassword)
                 .build();
 
+        LocalDateTime now = LocalDateTime.now();
         UserHistory userHistory = UserHistory
                 .builder()
                 .appUser(appUser)
-                .createdAt(LocalDateTime.now())
+                .createdAt(now)
+                .updatedAt(now)
                 .build();
 
         appUser.setUserHistory(userHistory);
