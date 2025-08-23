@@ -97,4 +97,7 @@ springdoc:
     path: /docs
   swagger-ui:
     path: /docs/swagger-ui.html
-  packages-to-scan: cz.cvut.moviemate.userservice.rest
+  model-converters:
+    pageable-converter:
+      enabled: true
+  packages-to-exclude: cz.cvut.moviemate.userservice.dto.mapper
