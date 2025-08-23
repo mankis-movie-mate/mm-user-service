@@ -97,3 +97,4 @@ springdoc:
     path: /docs
   swagger-ui:
     path: /docs/swagger-ui.html
+  packages-to-scan: cz.cvut.moviemate.userservice.rest
