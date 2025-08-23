@@ -98,3 +98,4 @@ springdoc:
   swagger-ui:
     path: /docs/swagger-ui.html
   packages-to-exclude: cz.cvut.moviemate.userservice.dto.mapper, org.springframework.data.rest.webmvc
+  packages-to-scan: cz.cvut.moviemate.userservice.rest
