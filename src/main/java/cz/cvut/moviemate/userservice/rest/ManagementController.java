@@ -38,7 +38,7 @@ public class ManagementController {
                     WARNING: after filter q=, use "%26" instead of "&"
                     """
     )
-    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = PageDto.class)))
+    @ApiResponse(responseCode = "200")
     @ApiResponse(responseCode = "403", description = "Access Denied. You do not have permission to access this resource.")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'ROOT')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,7 +60,7 @@ public class ManagementController {
     }
 
     @Operation(summary = "Get user's profile information by username. Accessible by roles ADMIN, MODERATOR, ROOT.")
-    @ApiResponse(responseCode = "200", description = "User's profile information was successfully retrieved.", content = @Content(schema = @Schema(implementation = AppUserDto.class)))
+    @ApiResponse(responseCode = "200", description = "User's profile information was successfully retrieved.")
     @ApiResponse(responseCode = "404", description = "User with given username not found.")
     @ApiResponse(responseCode = "403", description = "Access Denied. You do not have permission to access this resource.")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'ROOT')")
