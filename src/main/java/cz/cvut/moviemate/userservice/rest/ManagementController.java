@@ -27,16 +27,16 @@ public class ManagementController {
 
     @Operation(summary = "Searching users using filters.",
             description = """
-                    EQUAL(':'),
-                    NEGATION('!'),
-                    CONTAIN('*'),
-                    GREATER_THAN('>'),
-                    LESS_THAN('<'),
-                    LIKE('~'),
-                    details: true/false - provide users' details like activity history etc.
-                    Filter example: ?page=1&size=5&q=username:manki%26updateDate>2024-04-01
-                    WARNING: after filter q=, use "%26" instead of "&"
-                    """
+                EQUAL(':'),
+                NEGATION('!'),
+                CONTAIN('*'),
+                GREATER_THAN('>'),
+                LESS_THAN('<'),
+                LIKE('~'),
+                details: true/false - provide users' details like activity history etc.
+                Filter example: ?page=1&size=5&q=username:manki%26updateDate>2024-04-01
+                WARNING: after filter q=, use "%26" instead of "&"
+                """
     )
     @ApiResponse(responseCode = "200")
     @ApiResponse(responseCode = "403", description = "Access Denied. You do not have permission to access this resource.")
@@ -46,15 +46,24 @@ public class ManagementController {
             @RequestParam(value = "page", defaultValue = "0", required = false) int pageNo,
             @RequestParam(value = "size", defaultValue = "10", required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = "username", required = false) String sortBy,
-            @RequestParam(value = "order", defaultValue = "ASC", required = false) Sort.Direction order,
+            @RequestParam(value = "order", defaultValue = "ASC", required = false) String order,
             @RequestParam(value = "q", required = false) String query,
             @RequestParam(value = "details", defaultValue = "false", required = false) boolean details
     ) {
         log.info("MANAGEMENT: Received request to search users by filters: ?page={}&size={}&sortBy={}&order={}&q={}&details={}.",
                 pageNo, pageSize, sortBy, order, query, details);
 
+        // Map string to Sort.Direction safely (default to ASC)
+        Sort.Direction sortDirection;
+        try {
+            sortDirection = Sort.Direction.valueOf(order.toUpperCase());
+            log.error("MANAGEMENT: Cannot map this kind of order. Default is ASC.");
+        } catch (IllegalArgumentException | NullPointerException e) {
+            sortDirection = Sort.Direction.ASC;
+        }
+
         PageDto<AppUserDto> pageDto = externalAppUserService
-                .searchUsers(pageNo, pageSize, sortBy, order, query, details);
+                .searchUsers(pageNo, pageSize, sortBy, sortDirection, query, details);
 
         return ResponseEntity.ok(pageDto);
     }
