@@ -34,6 +34,13 @@ Environment variables are defined in `.env.example`.
 - Copy `.env.example` to `.env`
 - Fill in the required values for your local or production setup
 
+## 📄 API Documentation
+
+- **OpenAPI docs:** `${context.path}/docs`
+- **Swagger UI:** `${context.path}/docs/swagger-ui.html`
+
+_Replace `${context.path}` with deployment context (e.g. `/api/user`)._
+
 ## 🐳 Docker
 
 ### **Build image locally:**
