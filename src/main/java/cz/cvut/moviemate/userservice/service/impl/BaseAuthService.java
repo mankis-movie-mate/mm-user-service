@@ -94,9 +94,9 @@ public class BaseAuthService implements AuthService {
         // --- Publish event after successful registration ---
         daprEventPublisher
                 .publishRegisterEvent(new UserRegisterEvent(
-                        String.valueOf(saved.getId()),
+                        saved.getEmail(),
                         saved.getUsername(),
-                        saved.getEmail()
+                        String.valueOf(saved.getId())
                 ));
 
         return buildResponse(saved);
