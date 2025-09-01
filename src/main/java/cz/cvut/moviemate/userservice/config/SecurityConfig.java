@@ -4,6 +4,7 @@ import cz.cvut.moviemate.userservice.config.filter.FilterLevelExceptionHandler;
 import cz.cvut.moviemate.userservice.config.filter.SecurityFilter;
 import cz.cvut.moviemate.userservice.exception.handler.BaseAccessDeniedHandler;
 import cz.cvut.moviemate.userservice.service.InternalAppUserService;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Configuration
 @RequiredArgsConstructor
@@ -78,7 +81,9 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // Split comma-separated origins
-        configuration.setAllowedOrigins(List.of(allowedOrigins.split(",")));
+        configuration.setAllowedOrigins(
+                List.of(allowedOrigins.split(",")).stream().map(String::trim).toList()
+        );
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -104,5 +109,10 @@ public class SecurityConfig {
 
     private Customizer<ExceptionHandlingConfigurer<HttpSecurity>> getExceptionHandlingCustomizer() {
         return configurer -> configurer.accessDeniedHandler(accessDeniedExceptionHandler);
+    }
+
+    @PostConstruct
+    public void logCorsOrigins() {
+        System.out.println("Allowed origins: " + Arrays.toString(allowedOrigins.split(",")));
     }
 }
