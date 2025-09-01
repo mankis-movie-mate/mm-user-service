@@ -100,6 +100,7 @@ public class SecurityConfig {
 
     private Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> getRequestsCustomizer() {
         return auth -> auth
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Necessary for CORS
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/docs/**").permitAll()
                 .requestMatchers("/actuator/health").permitAll()
