@@ -31,7 +31,7 @@ spring:
         tags:
           # === PUBLIC (NO AUTH) ===
           - "traefik.enable=true"
-          - "traefik.http.routers.${spring.application.name}-public.rule=PathPrefix(`/auth`) || PathPrefix(`/docs`)"
+          - "traefik.http.routers.${spring.application.name}-public.rule=PathRegexp(`.*/auth.*$|.*/docs.*$`)"
           - "traefik.http.routers.${spring.application.name}-public.middlewares=dapr-rewrite@file"
           - "traefik.http.routers.${spring.application.name}-public.priority=100"
           # === SECURE (FORWARD AUTH) ===
