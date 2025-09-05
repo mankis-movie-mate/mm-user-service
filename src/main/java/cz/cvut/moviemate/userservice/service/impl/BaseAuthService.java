@@ -21,8 +21,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -94,9 +92,10 @@ public class BaseAuthService implements AuthService {
         // --- Publish event after successful registration ---
         daprEventPublisher
                 .publishRegisterEvent(new UserRegisterEvent(
-                        String.valueOf(saved.getId()),
+                        saved.getEmail(),
                         saved.getUsername(),
-                        saved.getEmail()
+                        String.valueOf(saved.getId())
+
                 ));
 
         return buildResponse(saved);
