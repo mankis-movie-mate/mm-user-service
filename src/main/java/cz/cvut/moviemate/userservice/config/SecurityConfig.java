@@ -80,9 +80,11 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // Split comma-separated origins
+
         configuration.setAllowedOrigins(
                 List.of(allowedOrigins.split(",")).stream().map(String::trim).toList()
         );
+
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

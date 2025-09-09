@@ -30,6 +30,7 @@ spring:
         scheme: http
         tags: ${MOVIE_MATE_USER_SERVICE_LB_TAGS}
 
+
   cache:
     type: redis
     host: ${MOVIE_MATE_REDIS_HOST}
