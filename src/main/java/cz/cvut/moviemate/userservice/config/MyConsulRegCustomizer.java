@@ -33,7 +33,7 @@ public class MyConsulRegCustomizer implements ConsulRegistrationCustomizer {
             }
         }
 
-        // Set back to registration (in case the tags list was replaced)
+        // Set back to registration in case the tags list was replaced
         registration.getService().setTags(tags);
     }
 }
