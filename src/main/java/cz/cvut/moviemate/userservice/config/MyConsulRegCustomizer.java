@@ -13,6 +13,7 @@ import java.util.List;
 public class MyConsulRegCustomizer implements ConsulRegistrationCustomizer {
 
 
+
     @Value("${spring.cloud.consul.discovery.traefik-tags}")
     private String rawTags;
 
