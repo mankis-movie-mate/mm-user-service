@@ -16,9 +16,11 @@ public class OnRootRestrictionAspect {
     @Value("${security.root-user.username}")
     private String rootUsername;
 
+
     @Before("@annotation(cz.cvut.moviemate.userservice.aspect.annotation.OnRootRestriction) && args(username,..)")
     public void checkRootUserRestriction(JoinPoint joinPoint, String username) {
-        if (rootUsername.equalsIgnoreCase(username)) {
+        log.info("Comparing rootUsername='{}' with username='{}'", rootUsername, username);
+        if (rootUsername != null && rootUsername.trim().equalsIgnoreCase(username.trim())) {
             log.warn("Operation not allowed for the root user in method: {}", joinPoint.getSignature().getName());
             throw new RestrictException("Operation not allowed for the root user.");
         }
