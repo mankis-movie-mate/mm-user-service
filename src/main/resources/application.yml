@@ -28,7 +28,7 @@ spring:
         health-check-interval: 10s
         prefer-ip-address: true
         scheme: http
-        tags: ${MOVIE_MATE_USER_SERVICE_LB_TAGS}
+        traefik-tags: ${MOVIE_MATE_USER_SERVICE_LB_TAGS}
 
 
   cache:
