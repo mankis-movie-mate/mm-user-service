@@ -28,6 +28,9 @@ public class MyConsulRegCustomizer implements ConsulRegistrationCustomizer {
             String[] customTags = rawTags.split("\\n");
             for (String tag : customTags) {
                 if (!tag.isBlank()) {
+                    if (!tag.endsWith(",")) {
+                        tag = tag + ",";
+                    }
                     tags.add(tag.trim());
                 }
             }

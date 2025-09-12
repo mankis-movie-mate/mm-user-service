@@ -83,7 +83,7 @@ logging:
     level: "%5p [traceId=%X{traceId:-},spanId=%X{spanId:-}]"
   level:
     org:
-      springframework: DEBUG
+      springframework: INFO
 
 app:
   cors:
